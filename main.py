@@ -1132,7 +1132,7 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
     """Displays the standard, professional help menu."""
     
     help_text = (
-        "⚙️ **P I X E L B O T   C O M M A N D S** ⚙️\n\n"
+        "⚙️ **P I X E L  P E E P   C O M M A N D S** ⚙️\n\n"
         "**I. Core & Profile**\n"
         "`/start` - System initialization.\n"
         "`/profile` - Access player statistics and rank.\n"
@@ -1162,10 +1162,10 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 
 async def about_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     about_text = (
-        "✨ **A B O U T   P I X E L B O T** ✨\n\n"
+        "✨ **A B O U T   P I X E L  P E E P** ✨\n\n"
         "PixelBot is designed to deliver a premium, engaging image recognition experience. "
         "It features a robust game engine, persistent player statistics, and an integrated economy.\n\n"
-        "**Version**: *6.1 (Album & Hint Logic Update)*"
+        "**Version**: *1.0 (Album & Hint Logic Update)*"
     )
     await update.message.reply_text(about_text, parse_mode='Markdown')
 
