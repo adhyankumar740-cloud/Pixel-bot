@@ -1087,7 +1087,7 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
     
     start_message = (
         f"**W E L C O M E, {user_name.upper()}!**\n\n"
-        "**PixelBot** is your premium image guessing utility. "
+        "**Pixel Peep* is your premium image guessing utility. "
         "Engage in challenging visual quizzes, accumulate points, and dominate the global leaderboard.\n\n"
         "**— E N G A G E —**\n"
         "▸ Start a game using `/game` and select a difficulty.\n"
