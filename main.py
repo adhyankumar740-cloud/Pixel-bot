@@ -72,10 +72,10 @@ logger = logging.getLogger(__name__)
 # ------------------------------------------------------------------
 
 # !!! IMPORTANT: REPLACE THESE PLACEHOLDERS WITH YOUR ACTUAL LINKS !!!
-BOT_USERNAME = "PixelGuessBot" # CHANGE THIS
-SUPPORT_GROUP_LINK = "https://t.me/YourSupportGroup" # CHANGE THIS
-MAIN_GROUP_LINK = "https://t.me/YourMainChannel" # CHANGE THIS
-WELCOME_IMAGE_URL = "https://i.imgur.com/GjZ6zQo.png" # CHANGE THIS (High-quality image for /start)
+BOT_USERNAME = "Pixel Peep" # CHANGE THIS
+SUPPORT_GROUP_LINK = "https://t.me/pixel_studis" # CHANGE THIS
+MAIN_GROUP_LINK = "https://t.me/+JNpAXIuwHTIyOWY1" # CHANGE THIS
+WELCOME_IMAGE_URL = "AgACAgUAAxkBAAPNaSdU6DYWrJbMvkAsoRF93H3V2x8AAhYLaxsfjEFVReKLNrpOrBUBAAMCAAN4AAM2BA" # CHANGE THIS (High-quality image for /start)
 
 # ADJUSTED PIXELATION LEVELS: Pixeling increased for Hard, Medium, and Easy.
 # Max hints reduced to 3 for all levels.
