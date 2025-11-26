@@ -1178,8 +1178,78 @@ def check_owner_wrapper(handler):
         else:
             await context.bot.send_message(chat_id=update.effective_chat.id, text="Access Denied. This utility is restricted to the bot administrator.")
     return wrapper
-
+    
 async def broadcast_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """
+    Broadcasts the message the admin replies to (supporting all media types).
+    If no reply, broadcasts text provided in arguments (for backward compatibility).
+    
+    NOTE: Uses parse_mode='HTML' for status messages to avoid parsing errors.
+    """
+    user_id = update.effective_user.id
+    chat_id = update.effective_chat.id
+    
+    # Check if the command is a reply to another message
+    message_to_broadcast = update.message.reply_to_message
+    text_content = None
+    
+    if message_to_broadcast:
+        # Case 1: Admin replied to a message (photo, file, text, etc.)
+        await context.bot.send_message(
+            chat_id=chat_id, 
+            text=f"<b>Broadcast Service Initiated.</b> Target count: {len(known_users)} chats...\nMode: Forwarding replied message.",
+            parse_mode='HTML'
+        )
+    elif context.args:
+        # Case 2: Text provided as arguments (Old way for text only)
+        text_content = " ".join(context.args)
+        await context.bot.send_message(
+            chat_id=chat_id, 
+            text=f"<b>Broadcast Service Initiated.</b> Target count: {len(known_users)} chats...\nMode: Sending plain text from arguments.",
+            parse_mode='HTML'
+        )
+    else:
+        # Neither reply nor arguments provided
+        await update.message.reply_text("Syntax Error: Please **reply** to the message (photo, file, text, sticker, etc.) you want to broadcast, OR use `/broadcast <text message>`.", parse_mode='Markdown')
+        return
+        
+    logger.info(f"[{user_id}] Initiating broadcast. Type: {'Forward' if message_to_broadcast else 'Text'}")
+
+    sent_count = 0
+    failed_count = 0
+    
+    chats_to_broadcast = list(known_users)
+    
+    for target_chat_id_str in chats_to_broadcast:
+        target_chat_id = int(target_chat_id_str)
+        try:
+            if message_to_broadcast:
+                # Use forward_message to send the replied content
+                await context.bot.forward_message(
+                    chat_id=target_chat_id, 
+                    from_chat_id=chat_id, # The chat where the command was issued (admin's chat)
+                    message_id=message_to_broadcast.message_id
+                )
+            elif text_content:
+                # Use send_message for text arguments
+                await context.bot.send_message(
+                    chat_id=target_chat_id, 
+                    text=text_content, 
+                    parse_mode='Markdown' # Default to Markdown for user-typed text
+                )
+            
+            sent_count += 1
+            await asyncio.sleep(0.1) # Small delay to respect Telegram's flood limits
+        except Exception as e:
+            failed_count += 1
+            logger.warning(f"Broadcast failure for chat {target_chat_id}: {e}")
+
+    final_message = f"<b>Broadcast Service Completed!</b>\nTransmission Success: <code>{sent_count}</code>\nTransmission Failed: <code>{failed_count}</code>"
+    await context.bot.send_message(chat_id=chat_id, text=final_message, parse_mode='HTML')
+    logger.info(f"[{user_id}] Broadcast completed. Sent: {sent_count}, Failed: {failed_count}")
+
+
+'''async def broadcast_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Sends a message to all known chats."""
     user_id = update.effective_user.id
     if not context.args:
@@ -1211,7 +1281,7 @@ async def broadcast_command(update: Update, context: ContextTypes.DEFAULT_TYPE) 
 
     final_message = f"**Broadcast Service Completed!**\nTransmission Success: `{sent_count}`\nTransmission Failed: `{failed_count}`"
     await context.bot.send_message(chat_id=update.effective_chat.id, text=final_message, parse_mode='Markdown')
-    logger.info(f"[{user_id}] Broadcast completed. Sent: {sent_count}, Failed: {failed_count}")
+    logger.info(f"[{user_id}] Broadcast completed. Sent: {sent_count}, Failed: {failed_count}")'''
 
 
 async def new_chat_member_handler(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
