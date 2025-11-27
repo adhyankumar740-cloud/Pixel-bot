@@ -85,8 +85,8 @@ MAIN_GROUP_LINK = "https://t.me/+JNpAXIuwHTIyOWY1"
 # NOTE: Replace with your actual photo ID if using /photoid command to get it.
 WELCOME_IMAGE_URL = "AgACAgUAAxkBAAPNaSdU6DYWrJbMvkAsoRF93H3V2x8AAhYLaxsfjEFVReKLNrpOrBUBAAMCAAN4AAM2BA" 
 # NOTE: Replace with your actual QR code photo ID
-DONATION_QR_CODE_ID = "YOUR_QR_CODE_PHOTO_ID_HERE" 
-UPI_ID_FOR_DONATION = "your_upi_id@bank"
+DONATION_QR_CODE_ID = "AgACAgUAAxkBAAIBzGkn8CZvfaDPAckxv-cOPFgKlus4AAJdC2sbmhxBVWBRzMvm7w0HAQADAgADeQADNgQ" 
+#UPI_ID_FOR_DONATION = "your_upi_id@bank"
 
 # ADJUSTED PIXELATION LEVELS: downscale_factor is the divisor for image dimensions.
 GAME_LEVELS = {
@@ -750,9 +750,9 @@ async def donate_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         "Pixel Peep runs 24/7 on cloud servers and uses premium Gemini AI services to create dynamic image challenges.\n"
         "Your support helps us cover these operational costs and keep the game free for everyone.\n\n"
         "**— H O W   T O   D O N A T E —**\n"
-        "1. **UPI Address (Direct Pay):**\n"
-        f"   `{UPI_ID_FOR_DONATION}`\n\n"
-        "2. **QR Code Scan:** (Scan the photo below)\n"
+       # "1. **UPI Address (Direct Pay):**\n"
+       # f"   `{UPI_ID_FOR_DONATION}`\n\n"
+        " **QR Code Scan:** (Scan the photo below)\n"
         "   *Use any UPI app (PayTM, GPay, PhonePe) to scan the code.*\n"
     )
     
