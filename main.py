@@ -1150,7 +1150,50 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
             parse_mode='Markdown',
             reply_markup=reply_markup
         )
+        
+async def photoid_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Gets the File ID of the photo/sticker/document the user replies to, or the one sent with the command."""
+    
+    message = update.message
+    
+    # Check if the user replied to a message
+    if message.reply_to_message:
+        target_message = message.reply_to_message
+    else:
+        target_message = message # Check the current message itself
+        
+    file_id = None
+    file_type = None
 
+    # Determine file type and extract ID
+    if target_message.photo:
+        # Telegram sends multiple sizes; use the largest one (last in the list)
+        file_id = target_message.photo[-1].file_id
+        file_type = "Photo"
+    elif target_message.sticker:
+        file_id = target_message.sticker.file_id
+        file_type = "Sticker"
+    elif target_message.document:
+        file_id = target_message.document.file_id
+        file_type = "Document"
+    elif target_message.animation:
+        file_id = target_message.animation.file_id
+        file_type = "Animation/GIF"
+    
+    if file_id:
+        response_text = (
+            f"✅ **{file_type} File ID Acquired**\n\n"
+            f"**File ID**: \n`{file_id}`\n\n"
+            "You can use this ID in your code for fixed media."
+        )
+    else:
+        response_text = (
+            "❌ **File Not Found**\n"
+            "Please send a photo, sticker, document, or animation, OR reply to one of them with `/photoid`."
+        )
+    
+    await message.reply_text(response_text, parse_mode='Markdown')
+    
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Displays the standard, professional help menu."""
     
