@@ -761,7 +761,29 @@ async def skip_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
             await update.message.reply_text("Could not send the original image file.", parse_mode='Markdown')
     else:
         await update.message.reply_text("No active game to skip.")
-
+        
+async def howtoplay_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Displays the comprehensive rules and mechanics of the game."""
+    
+    howtoplay_text = (
+        "📖 **H O W   T O   P L A Y** 📖\n\n"
+        "**1. The Challenge:**\n"
+        "   - Use `/game` to start a new image challenge and select a difficulty (Easy, Medium, Hard, Extreme).\n"
+        "   - The bot will send a **heavily pixelated** image.\n"
+        "   - The answer is always a **single word** (noun or object name), which is generated dynamically by the Gemini AI Model.\n\n"
+        "**2. Guessing & Winning:**\n"
+        "   - To guess, simply **type the word** directly into the chat.\n"
+        "   - **Example:** If the answer is 'Mountain', type `mountain` or `Mountain`.\n"
+        "   - Correct guesses earn you **Points** (depending on difficulty) and **unlock a new category** in your `/album`.\n\n"
+        "**3. Assistance & Economy:**\n"
+        "   - **Complimentary Hint:** Use `/hint` to get the AI-generated descriptive clue and the **exact number of letters** in the answer.\n"
+        "   - **Paid Assistance:** The button below the image allows you to reveal a **random letter** for a cost in Points.\n"
+        "   - **Shop:** Use `/shop` to buy power-ups like Flashlights (reveals 2 letters).\n\n"
+        "**4. Ending the Game:**\n"
+        "   - If the challenge is too hard, use `/skip` or the 'Terminate Game' button to end it. No points are awarded, but the answer will be revealed (with its letter count)."
+    )
+    
+    await update.message.reply_text(howtoplay_text, parse_mode='Markdown')
 
 async def simple_hint_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """
