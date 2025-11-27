@@ -1427,7 +1427,7 @@ async def donate_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     donate_text = (
         "**💖 Support {BOT_USERNAME} Development 💖**\n\n"
         "If you enjoy the bot, consider making a small donation to help cover server costs and fund future updates (like new game modes or better AI integration).\n\n"
-        #"**UPI ID:** `{UPI_ID_FOR_DONATION}`\n\n"
+       
         "You can scan the QR code below for easy payment. Thank you for your support!"
     )
     
