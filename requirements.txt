@@ -1,4 +1,4 @@
-python-telegram-bot[webhooks, jobquene]
+python-telegram-bot[webhooks]
 python-dotenv
 psycopg2-binary
 Pillow
