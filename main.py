@@ -362,7 +362,7 @@ def initialize_gemini_client():
     except Exception as e:
         logger.error(f"Gemini Client Initialization Error: {e}")
         return None
-
+  # ... (Keep existing code) ...
 async def get_ai_answer_and_hint(image_data: bytes) -> tuple[str | None, str | None]:
     """
     Sends image data to Gemini 2.5 Flash to get a one-word answer and a hint sentence.
@@ -385,6 +385,9 @@ async def get_ai_answer_and_hint(image_data: bytes) -> tuple[str | None, str | N
         "Strictly return ONLY a JSON object with two keys: 'answer' (one word, lowercase) and 'hint' (one sentence)."
     )
     
+    # --- FIX APPLIED: Initialize response to None ---
+    response = None 
+    
     try:
         response = client.models.generate_content(
             model='gemini-2.5-flash', 
@@ -406,8 +409,11 @@ async def get_ai_answer_and_hint(image_data: bytes) -> tuple[str | None, str | N
         return one_word_answer, hint_sentence
         
     except Exception as e:
-        logger.error(f"AI Response or Parsing Error: {e} | Raw Text: {response.text if response else 'N/A'}")
+        # --- FIX APPLIED: Safely check if response is defined before accessing .text ---
+        raw_text = response.text if response and hasattr(response, 'text') else 'N/A'
+        logger.error(f"AI Response or Parsing Error: {e} | Raw Text: {raw_text}")
         return None, None
+
 
 # ------------------------------------------------------------------
 # --- IMAGE GUESSING GAME LOGIC (API Interaction) ---
